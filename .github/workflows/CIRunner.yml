@@ -25,5 +25,5 @@ jobs:
       run: dotnet restore 
     - name: Build
       run: dotnet build --no-restore 
-    - name: .NET Test
-      run: dotnet test --no-restore --verbosity normal tests/UnitTests /p:CoverletOutput=lcov/ /p:CoverletOutputFormat=lcov
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal tests/UnitTests
