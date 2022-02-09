@@ -9,9 +9,10 @@ on:
     branches: [ NPE ]
 
 jobs:
+  defaults:
+    - working-directory: apis/poi
   build:
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-latest   
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
@@ -19,8 +20,8 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore 
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore 
     - name: .NET Test
       run: dotnet test --no-restore --verbosity normal apis/poi/tests/UnitTests /p:CoverletOutput=lcov/ /p:CoverletOutputFormat=lcov
