@@ -28,7 +28,7 @@ jobs:
     - name: Build Docker Image
       uses: Azure/acr-build@v1
       with:
-          service_principal: ${{ secrets.service_principal }}
+          service_principal: ${{ secrets.service_principal_clientid }}
           service_principal_password: ${{ secrets.service_principal_password }}
           tenant: ${{ secrets.tenant }}
           registry: openhack5tb2l2k6acr.azurecr.io
