@@ -68,7 +68,7 @@ namespace UnitTests.ControllerTests
         //assert  
         Assert.IsType<OkObjectResult>(result);
         Assert.NotNull(okResult);
-        Assert.Equal(200, okResult.StatusCode);
+        Assert.Equal(205, okResult.StatusCode);
       }
     }
 
