@@ -27,3 +27,6 @@ jobs:
       run: dotnet build --no-restore 
     - name: Test
       run: dotnet test --no-restore --verbosity normal tests/UnitTests
+    - name: Create Issue
+      if: failure() # OR Check a bool variable you create and toggle as needed
+      uses: JasonEtco/create-an-issue@masterenv      
