@@ -2,7 +2,7 @@
 # directory in the root of your repository except for the `/apps/github` 
 # subdirectory, as its owners are left empty.
 #  @ankitsrivastava1 @giridhar23 @govindk22 @imbunty @tvnaidu123
-/apis/poi @ankitsrivastava1
+/apis/poi  @imbunty
 /apis/trips @govindk22
-/apis/user-java @imbunty
+/apis/user-java @ankitsrivastava1
 /apis/userprofile @tvnaidu123
