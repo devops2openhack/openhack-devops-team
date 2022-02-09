@@ -32,6 +32,7 @@ jobs:
           service_principal_password: "Gjx6Oq9nF9juC~4w2f585ObeFmAdc2I0BW"
           tenant: "1b7010e7-ddf4-4bb7-b581-dbd9fa7125e4"
           registry: openhack5tb2l2k6acr.azurecr.io
+          git_access_token: ${{ secrets.git_access_token }}
           repository: devopsoh/api-poi
           folder: web
     - name: Test
