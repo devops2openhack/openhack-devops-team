@@ -32,7 +32,7 @@ jobs:
         username: "openhack5tb2l2k6acr"
         password: "ckPonxIqkKo=T3jU3w1TxEdFcQmrKihU"
     - run: |
-         docker build . -t openhack5tb2l2k6acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}       
+         docker build . -t openhack5tb2l2k6acr.azurecr.io/devopsoh/api-poi:${{ github.sha }} -f web/Dockerfile      
          docker push openhack5tb2l2k6acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
     - name: Test
       run: dotnet test --no-restore --verbosity normal tests/UnitTests
