@@ -1,9 +1,8 @@
 
-# POI Service Test CI 
-
+# POI Service Test CD - 11
 ## Overview
 
-POI (Trip Points of Interest) - CRUD API written in .Net Core 3.1 for points of interest on trips
+POI (Trip Points of Interest) - CRUD API written in .Net Core 3.1 for points of interest on trips.
 
 ## Build the Application
 
