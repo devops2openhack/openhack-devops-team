@@ -29,7 +29,6 @@ jobs:
       run: dotnet test --no-restore --verbosity normal tests/UnitTests
     - name: Create Issue
       if: failure() # OR Check a bool variable you create and toggle as needed
-      uses: JasonEtco/create-an-issue@v2
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+      uses: dacbd/create-issue-action@v1
+
+        
