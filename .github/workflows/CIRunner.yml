@@ -26,15 +26,15 @@ jobs:
     - name: Build
       run: dotnet build --no-restore 
     - name: Build Docker Image
-      uses: Azure/acr-build@v1
+    - uses: actions/checkout@v2
+    - uses: azure/docker-login@v1
       with:
-          service_principal: "aaca1641-3401-48c2-8528-b13fd19eea19"
-          service_principal_password: "Gjx6Oq9nF9juC~4w2f585ObeFmAdc2I0BW"
-          tenant: "1b7010e7-ddf4-4bb7-b581-dbd9fa7125e4"
-          registry: openhack5tb2l2k6acr.azurecr.io
-          git_access_token: "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" 
-          repository: devopsoh/api-poi
-          folder: web
+        login-server: openhack5tb2l2k6acr.azurecr.io
+        username: "openhack5tb2l2k6acr"
+        password: "ckPonxIqkKo=T3jU3w1TxEdFcQmrKihU"
+    - run: |
+         docker build . -t openhack5tb2l2k6acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}       
+         docker push openhack5tb2l2k6acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
     - name: Test
       run: dotnet test --no-restore --verbosity normal tests/UnitTests
     - name: Create Issue
