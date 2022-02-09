@@ -25,6 +25,15 @@ jobs:
       run: dotnet restore 
     - name: Build
       run: dotnet build --no-restore 
+    - name: Build Docker Image
+      uses: Azure/acr-build@v1
+      with:
+          service_principal: ${{ secrets.service_principal }}
+          service_principal_password: ${{ secrets.service_principal_password }}
+          tenant: ${{ secrets.tenant }}
+          registry: openhack5tb2l2k6acr.azurecr.io
+          repository: devopsoh/api-poi
+          folder: web
     - name: Test
       run: dotnet test --no-restore --verbosity normal tests/UnitTests
     - name: Create Issue
