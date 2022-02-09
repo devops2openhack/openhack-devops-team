@@ -4,10 +4,11 @@ on:
   push:
     paths:
       - 'apis/poi/*'
+    branches:
+      - 'main'
   pull_request:
     paths:
       - 'apis/poi/*'
-
 defaults:
   run:
     working-directory: ./apis/poi
@@ -25,15 +26,6 @@ jobs:
       run: dotnet restore 
     - name: Build
       run: dotnet build --no-restore 
-    - name: Build Docker Image
-      uses: azure/docker-login@v1
-      with:
-        login-server: openhack5tb2l2k6acr.azurecr.io
-        username: "openhack5tb2l2k6acr"
-        password: "ckPonxIqkKo=T3jU3w1TxEdFcQmrKihU"
-    - run: |
-         docker build web -t openhack5tb2l2k6acr.azurecr.io/devopsoh/api-poi:${{ github.sha }} 
-         docker push openhack5tb2l2k6acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
     - name: Test
       run: dotnet test --no-restore --verbosity normal tests/UnitTests
     - name: Create Issue
@@ -42,5 +34,15 @@ jobs:
       with:
         token: ${{ github.token }}
         title: Action workflow failed.
+    - name: Build and push Container to ACR
+      uses: azure/docker-login@v1
+      with:
+        login-server: openhack5tb2l2k6acr.azurecr.io
+        username: "openhack5tb2l2k6acr"
+        password: "ckPonxIqkKo=T3jU3w1TxEdFcQmrKihU"
+    - run: |
+         docker build web -t openhack5tb2l2k6acr.azurecr.io/devopsoh/api-poi:${{ github.sha }} 
+         docker push openhack5tb2l2k6acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
+ 
 
         
