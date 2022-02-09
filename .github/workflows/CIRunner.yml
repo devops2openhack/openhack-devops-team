@@ -26,4 +26,4 @@ jobs:
     - name: Build
       run: dotnet build --no-restore 
     - name: .NET Test
-      run: dotnet test --no-restore --verbosity normal apis/poi/tests/UnitTests /p:CoverletOutput=lcov/ /p:CoverletOutputFormat=lcov
+      run: dotnet test --no-restore --verbosity normal tests/UnitTests /p:CoverletOutput=lcov/ /p:CoverletOutputFormat=lcov
