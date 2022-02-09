@@ -2,11 +2,14 @@ name: .Net CI Runner
 
 on:
   push:
-    branches: [ NPE ]
+    branches: 
+     - '*'
     paths:
       - 'apis/poi/*'
   pull_request:
-    branches: [ NPE ]
+    branches: 
+     - NPE
+     - main
 
 defaults:
   run:
