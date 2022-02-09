@@ -6,10 +6,6 @@ on:
      - '*'
     paths:
       - 'apis/poi/*'
-  pull_request:
-    branches: 
-     - NPE
-     - main
 
 defaults:
   run:
