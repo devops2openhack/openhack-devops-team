@@ -24,3 +24,6 @@ jobs:
       run: dotnet build --no-restore
     - name: .NET Test
       run: dotnet test --no-restore --verbosity normal apis/poi/tests/UnitTests /p:CoverletOutput=lcov/ /p:CoverletOutputFormat=lcov
+    - name: Create Issue
+      if: failure() # OR Check a bool variable you create and toggle as needed
+      uses: JasonEtco/create-an-issue@masterenv      
