@@ -2,13 +2,9 @@ name: .Net CI Runner
 
 on:
   push:
-    branches: 
-     - '*'
     paths:
       - 'apis/poi/*'
   pull_request:
-    branches: 
-     - '*'
     paths:
       - 'apis/poi/*'
 
