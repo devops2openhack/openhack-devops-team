@@ -1,18 +1,15 @@
 name: .Net CI Runner
-
 on:
   push:
     paths:
       - 'apis/poi/*'
+      - '.github/workflows/CIRunner.yml'
     branches:
       - 'main'
   pull_request:
     paths:
       - 'apis/poi/*'
-defaults:
-  run:
-    working-directory: ./apis/poi
-    
+      - '.github/workflows/CIRunner.yml'
 jobs:
   build:
     runs-on: ubuntu-latest   
