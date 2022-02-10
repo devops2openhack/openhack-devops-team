@@ -60,11 +60,8 @@ jobs:
   healthcheck:
     runs-on: ubuntu-latest
     steps:
-    - name: healthtest 
-      run: | 
-          pwd \
-          ls 
-
+    - name: healthtest
+      run: ./.github/workflows/polling.sh "https://openhack5tb2l2k6poi-staging.azurewebsites.net/api/healthcheck/poi"
 
    
         
