@@ -57,13 +57,28 @@ jobs:
         app-name: openhack5tb2l2k6poi
         slot-name: staging
         images:  openhack5tb2l2k6acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
-  healthcheck:
+  validate_staging_slot:
     runs-on: ubuntu-latest
+    needs: build
     steps:
-    - name: healthtest
-      run: | 
-        curl --http2 -i https://openhack5tb2l2k6poi-staging.azurewebsites.net/api/healthcheck/poi 2>/dev/null | grep "HTTP/[12][12\.]*
-      shell: bash
+    - name: POI Healthcheck
+      id: poi-health-check
+      uses: satak/webrequest-action@master
+      with:
+        url: https://openhack5tb2l2k6poi-staging.azurewebsites.net/api/healthcheck/poi
+        method: GET
+    - name: Check the health POI API 
+      shell: pwsh
+      run: |
+        $output = '${{ steps.poi-health-check.outputs.output }}' | ConvertFrom-Json
+        Write-Host " Status code is $($output.statusCode) "
+        if($($output.statusCode) -eq 200) {
+        Write-host "Healthy"
+        #az webapp deployment slot swap --name openhackggp0ljh0poi --resource-group openhackggp0ljh0rg --slot staging --target-slot production
+        }
+        else {
+        Write-Error "POI API is not healthy"
+        }
 
    
         
