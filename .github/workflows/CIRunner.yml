@@ -75,7 +75,6 @@ jobs:
         Write-Host " Status code is $($output.statusCode) "
         if($($output.statusCode) -eq 200) {
         Write-host "Healthy"
-        az login 
         az webapp deployment slot swap --name openhack5tb2l2k6poi --resource-group openhack5tb2l2k6rg --slot staging --target-slot production
         }
         else {
