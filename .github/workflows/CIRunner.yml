@@ -43,6 +43,9 @@ jobs:
     - run: |
          docker build web -t openhack5tb2l2k6acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
          docker push openhack5tb2l2k6acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
+  deploy:
+    runs-on: ubuntu-latest   
+    steps:
     - name: Azure Login
       uses: Azure/login@v1.1
       with:
