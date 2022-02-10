@@ -61,7 +61,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: healthtest
-      run: ./.github/workflows/polling.sh "https://openhack5tb2l2k6poi-staging.azurewebsites.net/api/healthcheck/poi"
+      run: openhack-devops-team/.github/workflows/polling.sh "https://openhack5tb2l2k6poi-staging.azurewebsites.net/api/healthcheck/poi"
+      shell: bash
 
    
         
