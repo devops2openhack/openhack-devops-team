@@ -48,11 +48,9 @@ jobs:
     needs: build
     steps:
     - name: Azure Login
-      uses: Azure/login@v1.1
+      uses: azure/login@v1
       with:
-          client-id: "aaca1641-3401-48c2-8528-b13fd19eea19"
-          tenant-id: "1b7010e7-ddf4-4bb7-b581-dbd9fa7125e4"
-          subscription-id: "1785ddb8-fff0-4ce1-a328-314419bd0fd3"
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: Deploy to Azure App Services
       uses: Azure/webapps-deploy@v2
       with:
