@@ -1,18 +1,15 @@
 name: .Net CI Runner
-
 on:
   push:
     paths:
       - 'apis/poi/*'
+      - '.github/workflows/CIRunner.yml'
     branches:
       - 'main'
   pull_request:
     paths:
       - 'apis/poi/*'
-defaults:
-  run:
-    working-directory: ./apis/poi
-    
+      - '.github/workflows/CIRunner.yml'
 jobs:
   build:
     runs-on: ubuntu-latest   
@@ -23,11 +20,11 @@ jobs:
       with:
         dotnet-version: 3.1.x
     - name: Restore dependencies
-      run: dotnet restore 
+      run: dotnet restore 'apis/poi/web/poi.csproj'
     - name: Build
-      run: dotnet build --no-restore 
+      run: dotnet build --no-restore 'apis/poi/web/poi.csproj'
     - name: Test
-      run: dotnet test --no-restore --verbosity normal tests/UnitTests
+      run: dotnet test --no-restore --verbosity normal apis/poi/tests/UnitTests/UnitTests.csproj
     - name: Create Issue
       if: failure() # OR Check a bool variable you create and toggle as needed
       uses: dacbd/create-issue-action@v1
@@ -41,8 +38,48 @@ jobs:
         username: "openhack5tb2l2k6acr"
         password: "ckPonxIqkKo=T3jU3w1TxEdFcQmrKihU"
     - run: |
-         docker build web -t openhack5tb2l2k6acr.azurecr.io/devopsoh/api-poi:${{ github.sha }} 
-         docker push openhack5tb2l2k6acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
- 
+         docker build apis/poi/web -t openhack5tb2l2k6acr.azurecr.io/devopsoh/api-poi:latest
+         docker push openhack5tb2l2k6acr.azurecr.io/devopsoh/api-poi:latest
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Deploy to Azure App Services
+      uses: Azure/webapps-deploy@v2
+      with:
+        app-name: openhack5tb2l2k6poi
+        slot-name: staging
+        images:  openhack5tb2l2k6acr.azurecr.io/devopsoh/api-poi:latest
+  validate_staging_slot:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+    - name: POI Healthcheck
+      id: poi-health-check
+      uses: satak/webrequest-action@master
+      with:
+        url: https://openhack5tb2l2k6poi-staging.azurewebsites.net/api/healthcheck/poi
+        method: GET
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Swap Slots 
+      shell: pwsh
+      run: |
+        $output = '${{ steps.poi-health-check.outputs.output }}' | ConvertFrom-Json
+        Write-Host " Status code is $($output.statusCode) "
+        if($($output.statusCode) -eq 200) {
+        Write-host "Healthy"
+        az webapp deployment slot swap --name openhack5tb2l2k6poi --resource-group openhack5tb2l2k6rg --slot staging --target-slot production
+        }
+        else {
+        Write-Error "POI API is not healthy"
+        }
 
+   
         
