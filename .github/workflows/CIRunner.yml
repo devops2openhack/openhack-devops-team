@@ -62,5 +62,7 @@ jobs:
     steps:
     - name: healthtest
       run: | 
-         polling.sh https://openhack5tb2l2k6poi-staging.azurewebsites.net/api/healthcheck/poi
+         polling.sh "https://openhack5tb2l2k6poi-staging.azurewebsites.net/api/healthcheck/poi"
+
+   
         
