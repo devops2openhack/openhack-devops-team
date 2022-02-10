@@ -57,6 +57,10 @@ jobs:
         app-name: openhack5tb2l2k6poi
         slot-name: staging
         images:  openhack5tb2l2k6acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
- 
-
+  healthcheck:
+    runs-on: ubuntu-latest
+    steps:
+    - name: healthtest
+      run: | 
+         polling.sh
         
