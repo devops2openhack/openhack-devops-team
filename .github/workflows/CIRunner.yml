@@ -43,12 +43,16 @@ jobs:
     - run: |
          docker build web -t openhack5tb2l2k6acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
          docker push openhack5tb2l2k6acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
+    - name: Azure Login
+      uses: Azure/login@v1.1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
     - name: Deploy to Azure App Services
       uses: Azure/webapps-deploy@v2
       with:
-       app-name: openhack5tb2l2k6poi
-       slot-name: staging
-       images:  openhack5tb2l2k6acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
+        app-name: openhack5tb2l2k6poi
+        slot-name: staging
+        images:  openhack5tb2l2k6acr.azurecr.io/devopsoh/api-poi:${{ github.sha }}
  
 
         
